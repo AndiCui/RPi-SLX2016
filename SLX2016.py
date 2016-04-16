@@ -9,6 +9,7 @@ import time
 class SLX2016:
     def __init__(self,WR=4,A0=17,A1=18,D0=27,D1=22,D2=23,D3=24,D4=25,D5=5,D6=6,BL=12,CLR=13):
         GPIO.setmode(GPIO.BCM)
+        GPIO.setwarnings(0)
         GPIO.setup((WR,A0,A1,D0,D1,D2,D3,D4,D5,D6,BL,CLR),GPIO.OUT,initial=1)
         (self.WR,self.A0,self.A1,self.D0,self.D1,self.D2,self.D3,self.D4,self.D5,self.D6,self.BL,self.CLR) = (WR,A0,A1,D0,D1,D2,D3,D4,D5,D6,BL,CLR)
         self.APins = (A0,A1)
