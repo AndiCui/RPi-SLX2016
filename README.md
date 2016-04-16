@@ -29,14 +29,14 @@ display = SLX2016.SLX2016(WR,A0,A1,D0,D1,D2,D3,D4,D5,D6,BL,CLR)
 ##Get it running
 ```python
 import SLX2016
-display = SLX2016.SLX2016(WR,A0,A1,D0,D1,D2,D3,D4,D5,D6,BL,CLR)
+display = SLX2016.SLX2016()
 display.set_string("Hey!")
 ```
 
 ##Clean up the party
 ```python
 import SLX2016
-display = SLX2016.SLX2016(WR,A0,A1,D0,D1,D2,D3,D4,D5,D6,BL,CLR)
+display = SLX2016.SLX2016()
 display.clear()
 ```
 `try:` and `except KeyboardInterrupt:` might come in handy.
