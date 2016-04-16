@@ -7,42 +7,43 @@ import RPi.GPIO as GPIO
 import time
 
 class SLX2016:
-    def __init__(self,WR=4,A0=17,A1=18,D0=27,D1=22,D2=23,D3=24,D4=25,D5=5,D6=6,CLR=13):
+    def __init__(self,WR=4,A0=17,A1=18,D0=27,D1=22,D2=23,D3=24,D4=25,D5=5,D6=6,BL=12,CLR=13):
         GPIO.setmode(GPIO.BCM)
         GPIO.setup((WR,A0,A1,D0,D1,D2,D3,D4,D5,D6,CLR), GPIO.OUT, initial=1)
         (self.WR,self.A0,self.A1,self.D0,self.D1,self.D2,self.D3,self.D4,self.D5,self.D6,self.CLR) = (WR,A0,A1,D0,D1,D2,D3,D4,D5,D6,CLR)
-        self.Apins = (A0,A1)
-        self.Dpins = (D0,D1,D2,D3,D4,D5,D6)
+        self.APins = (A0,A1)
+        self.DPins = (D0,D1,D2,D3,D4,D5,D6)
 
-    def clr(self):
+    def clear(self):
         GPIO.output(self.CLR,not 1)
         GPIO.output(self.CLR,not 0)
 
-    def char(self, pos, char):
-        Asetting = '{0:02b}'.format(pos)
-        Dsetting = '{0:07b}'.format(ord(char))[::-1]
+    def set_character(self, position, character):
+        ASetting = '{0:02b}'.format(position)
+        DSetting = '{0:07b}'.format(ord(character))[::-1]
         for A in range(2):
-            GPIO.output(int(self.Apins[A]),int(Asetting[A]))
-        time.sleep(0.250)
+            GPIO.output(int(self.APins[A]),int(ASetting[A]))
         GPIO.output(self.WR,not 1)
         for D in range(7):
-            GPIO.output(int(self.Dpins[D]),int(Dsetting[D]))
+            GPIO.output(int(self.DPins[D]),int(DSetting[D]))
         GPIO.output(self.WR,not 0)
-        time.sleep(0.250)
 
-    def bin(self, pos, Dsetting):
-        Asetting = '{0:02b}'.format(pos)
+    def set_character_ascii(self, position, DSetting):
+        ASetting = '{0:02b}'.format(position)
         for A in range(2):
-            GPIO.output(int(self.Apins[A]),int(Asetting[A]))
-        time.sleep(0.250)
+            GPIO.output(int(self.APins[A]),int(ASetting[A]))
         GPIO.output(self.WR,not 1)
         for D in range(7):
-            GPIO.output(int(self.Dpins[D]),int(Dsetting[D]))
+            GPIO.output(int(self.DPins[D]),int(DSetting[D]))
         GPIO.output(self.WR,not 0)
-        time.sleep(0.250)
 
-    def str(self, str):
-        self.clr()
-        padded = str.rjust(4)
+    def string(self, string):
+        self.clear()
+        padded = string.rjust(4)
         for dig in range(4):
-            self.char(3-dig, padded[dig])
+            self.character(3-dig, padded[dig])
+
+    def blink(self, interval=0.1):
+                GPIO.output(self.BL,not 1)
+                time.sleep(interval)
+                GPIO.output(self.BL,not 0)
