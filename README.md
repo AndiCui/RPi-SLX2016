@@ -1,5 +1,7 @@
 #RPi-SLX2016
 A dirty piece of code that drives SLX2016 modules on a RPi.
+![Ahoy](./Ahoy.jpg)
+
 
 ##Default pin settings
 ~~Breadboard every single time accordingly:~~
