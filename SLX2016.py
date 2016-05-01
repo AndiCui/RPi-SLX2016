@@ -1,8 +1,4 @@
-#    CC0
-
-
-
-
+#License: CC0
 import RPi.GPIO as GPIO
 import time
 
@@ -23,8 +19,9 @@ class SLX2016:
         DSetting = '{0:07b}'.format(ord(character))[::-1]
         self.set_character_ascii(position,DSetting)
 
-    def set_character_ascii(self,position,DSetting):
+    def set_character_ascii(self,position,ascii):
         ASetting = '{0:02b}'.format(position)
+        DSetting = '{0:07b}'.format(ascii)
         for A in range(2):
             GPIO.output(int(self.APins[A]),int(ASetting[A]))
         GPIO.output(self.WR,not 1)
@@ -42,3 +39,4 @@ class SLX2016:
                 GPIO.output(self.BL,not 1)
                 time.sleep(interval)
                 GPIO.output(self.BL,not 0)
+                time.sleep(interval)
