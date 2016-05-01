@@ -16,12 +16,12 @@ class SLX2016:
         GPIO.output(self.CLR,not 0)
 
     def set_character(self,position,character):
-        DSetting = '{0:07b}'.format(ord(character))[::-1]
+        DSetting = ord(character)
         self.set_character_ascii(position,DSetting)
 
     def set_character_ascii(self,position,ascii):
         ASetting = '{0:02b}'.format(position)
-        DSetting = '{0:07b}'.format(ascii)
+        DSetting = '{0:07b}'.format(ascii)[::-1]
         for A in range(2):
             GPIO.output(int(self.APins[A]),int(ASetting[A]))
         GPIO.output(self.WR,not 1)
